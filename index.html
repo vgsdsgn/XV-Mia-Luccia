@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2a1b16">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Una invitación para ti · XV años Mía Luccia</title>
+  <meta name="description" content="Una carta especial para los XV años de Mía Luccia.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23742629'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23e5d5b5'%3EM%3C/text%3E%3C/svg%3E">
+  <style>
+    *{box-sizing:border-box}html{background:#291b16}body{margin:0;min-height:100svh;background:#291b16;color:#f6ead7;font-family:Georgia,serif}main{min-height:100svh;display:grid;place-items:center}.scene{position:relative;width:min(100%,560px);line-height:0;overflow:hidden}.scene img{display:block;width:100%;height:auto}.access{position:absolute;left:37.8%;top:52%;width:24.3%;height:8.1%;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:3%;line-height:1.1}.access input{height:32%;width:100%;border:0;border-radius:50px;background:rgba(247,239,211,.83);text-align:center;color:#3e211c;font:clamp(12px,2.3vw,17px) Georgia,serif;outline:0}.access input:focus{box-shadow:0 0 0 3px #9e7837}.access button{height:30%;width:100%;border:0;background:transparent;color:#4b3028;font:italic clamp(12px,2.3vw,17px) Georgia,serif;cursor:pointer;padding:0}.access button:hover,.access button:focus-visible{text-decoration:underline;outline-offset:2px}.access .message{position:absolute;top:66%;left:-42%;width:184%;margin:0;padding:4px 8px;background:rgba(48,24,21,.9);color:#fff6e5;text-align:center;font:clamp(12px,2vw,15px)/1.3 Georgia,serif;border-radius:4px;line-height:1.25}.invitation{animation:reveal .65s ease both}.hidden{display:none!important}.close{position:fixed;z-index:2;top:12px;right:12px;padding:10px 14px;border:1px solid #d7ba82;border-radius:30px;background:#39221d;color:#fff0d2;font:15px Georgia,serif;cursor:pointer;line-height:1.3;box-shadow:0 4px 20px #0008}@keyframes reveal{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.invitation{animation:none}}@media(min-width:560px){.access input,.access button{font-size:17px}}
+    .access button{color:transparent!important;font-size:0!important;text-decoration:none!important}
+    .access button:focus-visible{outline:3px solid #9e7837;border-radius:4px}
+    .scene.fading{animation:fadeout .65s ease-in both}
+    .invitation{animation:reveal-magic .85s ease both}
+    .magic{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 50% 48%,rgba(255,233,176,.32),transparent 55%);animation:magicfade 1.05s ease-in-out both}
+    .magic i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);background:#ffe8ae;border-radius:50%;box-shadow:0 0 12px 4px #ffe1a4,0 0 34px 10px #fff4d188;animation:spark .95s ease-out both;animation-delay:var(--d)}
+    @keyframes fadeout{to{opacity:0;filter:blur(12px);transform:scale(1.035)}}
+    @keyframes reveal-magic{from{opacity:0;filter:blur(8px);transform:scale(.985)}to{opacity:1;filter:blur(0);transform:scale(1)}}
+    @keyframes magicfade{0%,100%{opacity:0}30%,70%{opacity:1}}
+    @keyframes spark{from{opacity:0;transform:scale(.2) translateY(8px)}45%{opacity:1}to{opacity:0;transform:scale(1.4) translateY(-22px)}}
+    @media(prefers-reduced-motion:reduce){.invitation,.scene.fading,.magic,.magic i{animation:none}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="scene" id="gate" aria-label="Acceso a la invitación">
+      <img src="Landing-Page.jpg" alt="Sobre sellado y una tarjeta que pide la palabra secreta para revelar la invitación" width="1152" height="2048">
+      <form class="access" id="access-form">
+        <label class="hidden" for="secret">Palabra secreta</label>
+        <input id="secret" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Palabra secreta" required>
+        <button type="submit" aria-label="Revelar invitación"></button>
+        <p class="message hidden" id="message" role="alert">La palabra secreta no es correcta. Inténtalo de nuevo.</p>
+      </form>
+    </section>
+    <section class="scene invitation hidden" id="letter" aria-label="Invitación a los XV años de Mía Luccia">
+      <button class="close" id="return" type="button">← Volver al sobre</button>
+      <img src="Invitación-Digital.jpg" alt="Invitación a los XV años de Mía Luccia, viernes 27 de noviembre de 2026. Celebración religiosa a las 2:30 pm en la Parroquia Espíritu Santo; recepción a las 7:00 pm en el Centro de convenciones. Vestimenta formal; se agradece evitar el color rosa." width="1152" height="2048">
+    </section>
+  </main>
+  <script>
+    // Clave temporal para probar la experiencia. No usar como control real de invitados.
+    const DEMO_PASSWORD = 'LUMOS';
+    const form = document.getElementById('access-form');
+    const gate = document.getElementById('gate');
+    const letter = document.getElementById('letter');
+    const input = document.getElementById('secret');
+    const message = document.getElementById('message');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (input.value.trim().normalize('NFKC').toLocaleUpperCase('es') !== DEMO_PASSWORD) {
+        message.classList.remove('hidden');
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+      message.classList.add('hidden');
+      input.removeAttribute('aria-invalid');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion) {
+        gate.classList.add('fading');
+        const magic = document.createElement('div');
+        magic.className = 'magic'; magic.setAttribute('aria-hidden', 'true');
+        for (let i = 0; i < 23; i++) {
+          const spark = document.createElement('i');
+          spark.style.setProperty('--x', `${20 + Math.random() * 60}%`);
+          spark.style.setProperty('--y', `${24 + Math.random() * 53}%`);
+          spark.style.setProperty('--s', `${2 + Math.random() * 4}px`);
+          spark.style.setProperty('--d', `${Math.random() * .35}s`);
+          magic.appendChild(spark);
+        }
+        document.body.appendChild(magic);
+        setTimeout(() => magic.remove(), 1100);
+      }
+      setTimeout(() => {
+        gate.classList.add('hidden'); gate.classList.remove('fading');
+        letter.classList.remove('hidden');
+        window.scrollTo({top:0,behavior:'instant'});
+        document.getElementById('return').focus();
+      }, reducedMotion ? 0 : 580);
+    });
+    input.addEventListener('input', () => { message.classList.add('hidden'); input.removeAttribute('aria-invalid'); });
+    document.getElementById('return').addEventListener('click', () => {
+      letter.classList.add('hidden'); gate.classList.remove('hidden'); input.value=''; input.focus(); window.scrollTo({top:0,behavior:'instant'});
+    });
+  </script>
+</body>
+</html>
