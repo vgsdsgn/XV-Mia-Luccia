@@ -7,13 +7,12 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Una invitación para ti · XV años Mía Luccia</title>
   <meta name="description" content="Una carta especial para los XV años de Mía Luccia.">
-  <link rel="preload" as="image" href="Invitación-Digital.jpg?v=2">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23742629'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='40' fill='%23e5d5b5'%3EM%3C/text%3E%3C/svg%3E">
   <style>
     *{box-sizing:border-box}html{background:#291b16}body{margin:0;min-height:100svh;background:#291b16;color:#f6ead7;font-family:Georgia,serif}main{min-height:100svh;display:grid;place-items:center}.scene{position:relative;width:min(100%,560px);line-height:0;overflow:hidden}.scene img{display:block;width:100%;height:auto}.access{position:absolute;left:37.8%;top:52%;width:24.3%;height:8.1%;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:3%;line-height:1.1}.access input{height:32%;width:100%;border:0;border-radius:50px;background:rgba(247,239,211,.83);text-align:center;color:#3e211c;font:clamp(12px,2.3vw,17px) Georgia,serif;outline:0}.access input:focus{box-shadow:0 0 0 3px #9e7837}.access button{height:30%;width:100%;border:0;background:transparent;color:#4b3028;font:italic clamp(12px,2.3vw,17px) Georgia,serif;cursor:pointer;padding:0}.access button:hover,.access button:focus-visible{text-decoration:underline;outline-offset:2px}.access .message{position:absolute;top:66%;left:-42%;width:184%;margin:0;padding:4px 8px;background:rgba(48,24,21,.9);color:#fff6e5;text-align:center;font:clamp(12px,2vw,15px)/1.3 Georgia,serif;border-radius:4px;line-height:1.25}.invitation{animation:reveal .65s ease both}.hidden{display:none!important}.close{position:fixed;z-index:2;top:12px;right:12px;padding:10px 14px;border:1px solid #d7ba82;border-radius:30px;background:#39221d;color:#fff0d2;font:15px Georgia,serif;cursor:pointer;line-height:1.3;box-shadow:0 4px 20px #0008}@keyframes reveal{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.invitation{animation:none}}@media(min-width:560px){.access input,.access button{font-size:17px}}
     .access button{color:transparent!important;font-size:0!important;text-decoration:none!important}
     .access button:focus-visible{outline:3px solid #9e7837;border-radius:4px}
-    .access input{background:transparent}
+    .access input{background:transparent;font-size:16px}
     .scene{width:min(100vw,56.25svh)}
     .map-link{position:absolute;display:block;background:transparent;border-radius:3px;cursor:pointer}
     .map-link:focus-visible{outline:3px solid #c39254;outline-offset:2px}
@@ -36,63 +35,85 @@
       <img src="Landing-Page.jpg" alt="Sobre sellado y una tarjeta que pide la palabra secreta para revelar la invitación" width="1152" height="2048">
       <form class="access" id="access-form">
         <label class="hidden" for="secret">Palabra secreta</label>
-        <input id="secret" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Palabra secreta" required>
+        <input id="secret" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" maxlength="7" spellcheck="false" aria-label="Palabra secreta" required>
         <button type="submit" aria-label="Revelar invitación"></button>
         <p class="message hidden" id="message" role="alert">La palabra secreta no es correcta. Inténtalo de nuevo.</p>
       </form>
     </section>
     <section class="scene invitation hidden" id="letter" aria-label="Invitación a los XV años de Mía Luccia">
       <button class="close" id="return" type="button">← Volver al sobre</button>
-      <img src="Invitación-Digital.jpg?v=2" alt="Invitación a los XV años de Mía Luccia, viernes 27 de noviembre de 2026. Celebración religiosa a las 2:30 pm en la Parroquia Espíritu Santo; recepción a las 7:00 pm en el Centro de convenciones. Vestimenta formal; se agradece evitar el color rosa." width="1152" height="2048">
+      <img id="private-image" alt="Invitación a los XV años de Mía Luccia, viernes 27 de noviembre de 2026. Celebración religiosa a las 2:30 pm en la Parroquia Espíritu Santo; recepción a las 7:00 pm en el Centro de convenciones. Vestimenta formal; se agradece evitar el color rosa." width="1152" height="2048">
       <a class="map-link map-church" href="https://share.google/lcALlceqcukQhTHI4" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación de la Parroquia Espíritu Santo en Google Maps"></a>
       <a class="map-link map-reception" href="https://share.google/8fL69kAdxK5znpDew" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación del Centro de convenciones en Google Maps"></a>
     </section>
   </main>
   <script>
-    // Clave compartida para esta experiencia visual; GitHub Pages no protege los archivos.
-    const SHARED_PASSWORD = 'MLACXV';
-    const form = document.getElementById('access-form');
-    const gate = document.getElementById('gate');
-    const letter = document.getElementById('letter');
-    const input = document.getElementById('secret');
-    const message = document.getElementById('message');
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (input.value.trim().normalize('NFKC').toLocaleUpperCase('es') !== SHARED_PASSWORD) {
-        message.classList.remove('hidden');
-        input.setAttribute('aria-invalid', 'true');
-        input.focus();
-        return;
-      }
-      message.classList.add('hidden');
-      input.removeAttribute('aria-invalid');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reducedMotion) {
-        gate.classList.add('fading');
-        const magic = document.createElement('div');
-        magic.className = 'magic'; magic.setAttribute('aria-hidden', 'true');
-        for (let i = 0; i < 23; i++) {
-          const spark = document.createElement('i');
-          spark.style.setProperty('--x', `${20 + Math.random() * 60}%`);
-          spark.style.setProperty('--y', `${24 + Math.random() * 53}%`);
-          spark.style.setProperty('--s', `${2 + Math.random() * 4}px`);
-          spark.style.setProperty('--d', `${Math.random() * .35}s`);
-          magic.appendChild(spark);
-        }
-        document.body.appendChild(magic);
-        setTimeout(() => magic.remove(), 1100);
-      }
-      setTimeout(() => {
-        gate.classList.add('hidden'); gate.classList.remove('fading');
-        letter.classList.remove('hidden');
-        window.scrollTo({top:0,behavior:'instant'});
-        document.getElementById('return').focus();
-      }, reducedMotion ? 0 : 580);
-    });
-    input.addEventListener('input', () => { message.classList.add('hidden'); input.removeAttribute('aria-invalid'); });
-    document.getElementById('return').addEventListener('click', () => {
-      letter.classList.add('hidden'); gate.classList.remove('hidden'); input.value=''; input.focus(); window.scrollTo({top:0,behavior:'instant'});
-    });
-  </script>
+const API = 'https://mia-luccia-accesos.vgs250897.workers.dev';
+const form=document.getElementById('access-form'),gate=document.getElementById('gate'),letter=document.getElementById('letter'),input=document.getElementById('secret'),message=document.getElementById('message'),button=form.querySelector('button'),back=document.getElementById('return'),picture=document.getElementById('private-image');
+const SESSION='mia-access-v1',PENDING='mia-pending-v1';
+let busy=false,imageURL;
+const read=key=>{try{return sessionStorage.getItem(key)}catch{return null}};
+const save=(key,value)=>{try{sessionStorage.setItem(key,value)}catch{throw new Error('Activa el almacenamiento del navegador para abrir tu invitación.')}};
+const remove=key=>{try{sessionStorage.removeItem(key)}catch{}};
+function fail(text){message.textContent=text;message.classList.remove('hidden');}
+function lock(value){busy=value;button.disabled=value;input.disabled=value;form.setAttribute('aria-busy',String(value));}
+async function api(path,options={}){
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+ try{return await fetch(API+path,{...options,signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timeout);}
+}
+async function loadImage(token){
+ const r=await api('/invitation',{headers:{Authorization:'Bearer '+token}});
+ if(r.status===401){remove(SESSION);throw new Error('Tu sesión terminó. Escribe tu contraseña para entrar de nuevo.');}
+ if(!r.ok)throw new Error('No se pudo cargar la invitación. Intenta de nuevo; tu acceso se conservará.');
+ const blob=await r.blob(),next=URL.createObjectURL(blob);
+ try{picture.src=next;await picture.decode();}catch{URL.revokeObjectURL(next);throw new Error('No se pudo mostrar la invitación. Intenta de nuevo.');}
+ if(imageURL)URL.revokeObjectURL(imageURL);imageURL=next;
+}
+async function reveal(){
+ message.classList.add('hidden');input.removeAttribute('aria-invalid');input.blur();
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!reduced){
+  gate.classList.add('fading');const magic=document.createElement('div');magic.className='magic';magic.setAttribute('aria-hidden','true');
+  for(let i=0;i<23;i++){const spark=document.createElement('i');spark.style.setProperty('--x',`${20+Math.random()*60}%`);spark.style.setProperty('--y',`${24+Math.random()*53}%`);spark.style.setProperty('--s',`${2+Math.random()*4}px`);spark.style.setProperty('--d',`${Math.random()*.35}s`);magic.appendChild(spark);}
+  document.body.appendChild(magic);setTimeout(()=>magic.remove(),1100);
+  await new Promise(resolve=>setTimeout(resolve,580));
+ }
+ gate.classList.add('hidden');gate.classList.remove('fading');letter.classList.remove('hidden');input.value='';window.scrollTo({top:0,behavior:'instant'});back.focus({preventScroll:true});
+}
+form.addEventListener('submit',async event=>{
+ event.preventDefault();if(busy)return;
+ const code=input.value.trim().toUpperCase();
+ if(!/^[A-Z]{2,4}[0-9]{3}$/.test(code)){fail('Escribe tus iniciales seguidas de tres números.');return;}
+ lock(true);message.classList.add('hidden');
+ try{
+  let token=read(SESSION);
+  if(!token){
+   const fingerprint=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code))),b=>b.toString(16).padStart(2,'0')).join('');
+   let pending;try{pending=JSON.parse(read(PENDING)||'null')}catch{}
+   if(!pending||pending.fingerprint!==fingerprint){pending={fingerprint,token:Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('')};save(PENDING,JSON.stringify(pending));}
+   const r=await api('/redeem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:code,token:pending.token})});
+   const data=await r.json();
+   if(!r.ok){
+    if(r.status<500&&r.status!==429)remove(PENDING);
+    const texts={exhausted:'Esta contraseña ya utilizó sus dos accesos.',invalid:'La palabra secreta no es correcta. Inténtalo de nuevo.',rate_limit:'Espera un minuto antes de intentar de nuevo.',new_session_required:'Vuelve a intentarlo para iniciar una nueva sesión.'};
+    throw new Error(texts[data.error]||'La invitación no está disponible en este momento. Intenta de nuevo.');
+   }
+   token=data.token;save(SESSION,token);remove(PENDING);
+  }
+  await loadImage(token);await reveal();
+ }catch(error){fail(error.name==='AbortError'||error instanceof TypeError?'No se pudo conectar. Intenta de nuevo; no se descontará un acceso adicional por reintentar.':error.message);}
+ finally{lock(false);}
+});
+input.addEventListener('input',()=>{message.classList.add('hidden');input.removeAttribute('aria-invalid');});
+back.addEventListener('click',()=>{
+ remove(SESSION);remove(PENDING);letter.classList.add('hidden');gate.classList.remove('hidden');picture.removeAttribute('src');if(imageURL){URL.revokeObjectURL(imageURL);imageURL=null;}input.value='';window.scrollTo({top:0,behavior:'instant'});
+});
+(async()=>{
+ const token=read(SESSION);if(!token)return;lock(true);
+ try{const r=await api('/session',{headers:{Authorization:'Bearer '+token}});if(r.status===401){remove(SESSION);return;}if(!r.ok)throw new Error('No se pudo recuperar tu sesión. Recarga para reintentar.');await loadImage(token);await reveal();}
+ catch(error){fail('No se pudo recuperar tu sesión. Recarga para reintentar.');}finally{lock(false);}
+})();
+
+</script>
 </body>
 </html>
