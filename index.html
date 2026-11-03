@@ -18,6 +18,7 @@
     .map-link:focus-visible{outline:3px solid #c39254;outline-offset:2px}
     .map-church{left:12.4%;top:25.9%;width:21.5%;height:4.5%}
     .map-reception{left:19.3%;top:63.3%;width:22%;height:2.4%}
+    .rsvp-link{left:3.7%;top:40%;width:13%;height:4.3%}
     .scene.fading{animation:fadeout .65s ease-in both}
     .invitation{animation:reveal-magic .85s ease both}
     .magic{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 50% 48%,rgba(255,233,176,.32),transparent 55%);animation:magicfade 1.05s ease-in-out both}
@@ -45,6 +46,7 @@
       <img id="private-image" alt="Invitación a los XV años de Mía Luccia, viernes 27 de noviembre de 2026. Celebración religiosa a las 2:30 pm en la Parroquia Espíritu Santo; recepción a las 7:00 pm en el Centro de convenciones. Vestimenta formal; se agradece evitar el color rosa." width="1152" height="2048">
       <a class="map-link map-church" href="https://share.google/lcALlceqcukQhTHI4" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación de la Parroquia Espíritu Santo en Google Maps"></a>
       <a class="map-link map-reception" href="https://share.google/8fL69kAdxK5znpDew" target="_blank" rel="noopener noreferrer" aria-label="Abrir ubicación del Centro de convenciones en Google Maps"></a>
+      <a class="map-link rsvp-link" href="https://forms.gle/Ys17bbLQ1PXGBoxw7" target="_blank" rel="noopener noreferrer" aria-label="Confirmar asistencia en el formulario"></a>
     </section>
   </main>
   <script>
@@ -95,7 +97,7 @@ form.addEventListener('submit',async event=>{
    const data=await r.json();
    if(!r.ok){
     if(r.status<500&&r.status!==429)remove(PENDING);
-    const texts={exhausted:'Esta contraseña ya utilizó sus dos accesos.',invalid:'La palabra secreta no es correcta. Inténtalo de nuevo.',rate_limit:'Espera un minuto antes de intentar de nuevo.',new_session_required:'Vuelve a intentarlo para iniciar una nueva sesión.'};
+    const texts={exhausted:data.limit===10?'Esta contraseña ya utilizó sus diez accesos.':'Esta contraseña ya utilizó sus dos accesos.',invalid:'La palabra secreta no es correcta. Inténtalo de nuevo.',rate_limit:'Espera un minuto antes de intentar de nuevo.',new_session_required:'Vuelve a intentarlo para iniciar una nueva sesión.'};
     throw new Error(texts[data.error]||'La invitación no está disponible en este momento. Intenta de nuevo.');
    }
    token=data.token;save(SESSION,token);remove(PENDING);
